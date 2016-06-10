@@ -51,7 +51,7 @@ location ^~ /assets/ {
   add_header "X-UA-Compatible" "IE=Edge,chrome=1";
   <% end %>
 
-  location /live {
+  location = /live {
       try_files $uri @<%= nginx_config_name %>;
   }
 
