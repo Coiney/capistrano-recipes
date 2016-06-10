@@ -51,14 +51,16 @@ location ^~ /assets/ {
   add_header "X-UA-Compatible" "IE=Edge,chrome=1";
   <% end %>
 
+  location /live {
+      try_files $uri @<%= nginx_config_name %>;
+  }
+
   location / {
       <%= partial path "https_redirect" -%>
       try_files $uri $uri/ $uri/index.html @<%= nginx_config_name %>;
   }
 
   location @<%= nginx_config_name %> {
-
-  <%= partial path "https_redirect" -%>
 
   <% if fetch(:enable_basic_auth,false) -%>
     auth_basic "<%= nginx_config_name -%> Restricted";
